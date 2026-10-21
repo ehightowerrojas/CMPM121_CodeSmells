@@ -37,3 +37,59 @@ Often times when coding you will find sections of code that resemble eachother o
 ### Prevention and Refactoring
 
 The simplest case of finding and fixing a duplicated code smell is if you have the same expression in two methods of the same class. In that case, one can use the Extract Function method that Fowler describes in chapter 6. However, if you have statements that are similar but not identical Fowler suggests using the Slide Statement method to rearrange the code into its identical sections and then extract those.
+
+## Loops
+* Loops are very commonly used because they are one of the first operations taught to programmers, but can be unclear in their function or purpose.
+* Usage of loops can be replaced/replicated via pipeline functions like filters and maps, which more clearly display what the operation is doing and do what type of data.
+
+### This JavaScript code block is used for loops to create floating text, when it could be using a map function instead. 
+ ```    JAVASCRIPT 
+ for (let i = 1; i <= 7; i++) {
+        this[`ball${i}`] = this.add.follower(line1, -200, game.config.height-(game.config.height/1.75), 'rocket');
+        this[`ball${i}`].startFollow({
+          delay: (i - 1) * delayIncrement,
+          duration: 800,
+          yoyo: true,
+          ease: 'Sine.easeInOut',
+          repeat: -1,
+        });
+      }
+
+
+      for (let i = 7; i <= 12; i++){
+        this[`ball${i}`] = this.add.follower(line1, -200, game.config.height-(game.config.height/2), 'rocket');
+        this[`ball${i}`].startFollow({
+          delay: (i - 7) * delayIncrement,
+          duration: 800,
+          yoyo: true,
+          ease: 'Sine.easeInOut',
+          repeat: -1,
+        });
+      }
+
+      for (let i = 13; i <= 40; i++){
+        this[`ball${i}`] = this.add.follower(line1, -200, game.config.height-(game.config.height/6), 'rocket');
+        this[`ball${i}`].startFollow({
+          delay: (i - 13) * delayIncrement,
+          duration: 800,
+          yoyo: true,
+          ease: 'Sine.easeInOut',
+          repeat: -1,
+        });
+      } 
+ ``` 
+
+### This Python code block is using a for loop to find prime numbers, when it could be using a filter function instead.
+ ``` PYTHON
+if inputn > 1:
+   for i in range(2,inputn):
+       if (inputn % i) == 0:
+           break
+   else:
+       print(inputn,"is a prime number.")
+       
+else:
+   print(inputn,"is not a prime number.")
+ ``` 
+
+
