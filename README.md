@@ -8,9 +8,11 @@ A **Code Smell** is a surface indication that usually corresponds to coding malp
 
 ## Mysterious Name
 
+### Introduction
+
 One of the most important parts of coding clearly is coming up with good names that communicate what they do to us and others. As we code independently, it can be easy to come up with names for variables and functions that only make sense to us. Its important to think about others when you code, Fowler suggests that keeping code "mundane and clear" is vital to clearly communicating what your code does and how to use it properly.
 
-Code Example (From Clicker D1 Project!):
+### Code Example (From Clicker D1 Project!):
 
 Here, its not clear what button1 really does, changing it to "mainbutton" might be more clear to suggest its purpose of incrementing "counter" to users.
 
