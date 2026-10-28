@@ -56,3 +56,230 @@ Often times when coding you will find sections of code that resemble eachother o
 ### Prevention and Refactoring
 
 The simplest case of finding and fixing a duplicated code smell is if you have the same expression in two methods of the same class. In that case, one can use the Extract Function method that Fowler describes in chapter 6. However, if you have statements that are similar but not identical Fowler suggests using the Slide Statement method to rearrange the code into its identical sections and then extract those.
+
+### Code Example
+
+```javascript
+waveOne() {
+        let my = this.my
+
+        if (my.shieldenemyRed1) {
+            my.shieldenemyRed1.destroy();
+            my.shieldenemyRed1 = null;
+        }
+        if (my.shieldenemyRed2) {
+            my.shieldenemyRed2.destroy();
+            my.shieldenemyRed2 = null;
+        }
+        if (my.bowenemyYellow1) {
+            my.bowenemyYellow1.destroy();
+            my.bowenemyYellow1 = null;
+        }
+        if (my.bowenemyYellow2) {
+            my.bowenemyYellow2.destroy();
+            my.bowenemyYellow2 = null;
+        }
+
+        this.enemiesRemaining = 4;
+
+        //Shield Enemy 1
+        this.my.sprite.SquareRed1 = this.add.sprite(0, 0, "shieldEnemyRed");
+        this.my.shieldenemyRed1 = this.add.container(this.enemyX, this.enemyY, [this.my.sprite.SquareRed1])
+        let Helmet1 = this.add.sprite(0,-25, "Helmet");
+        this.my.sprite.Helmet1 = Helmet1;
+        let Shield1 = this.add.sprite(+15,+10, "Shield").setScale(.5);
+        this.my.shieldenemyRed1.add([Helmet1, Shield1]);
+        this.my.shieldenemyRed1.visible = true;
+
+        this.shield1PathProgress = 0;
+
+        // this.shieldEnemies.add(this.my.shieldenemyRed1);
+
+        this.timesShieldHit1 = 0;
+        this.shieldJustHit1 = false;
+
+        //Shield Enemy 2
+        this.my.sprite.SquareRed2 = this.add.sprite(0, 0, "shieldEnemyRed");
+        my.shieldenemyRed2 = this.add.container(this.enemyX, this.enemyY, [this.my.sprite.SquareRed2])
+        let Helmet2 = this.add.sprite(0,-25, "Helmet");
+        this.my.sprite.Helmet2 = Helmet2;
+        let Shield2 = this.add.sprite(+15,+10, "Shield").setScale(.5);
+        this.my.shieldenemyRed2.add([Helmet2, Shield2]);
+        my.shieldenemyRed2.visible = true;
+
+        this.shield2PathProgress = 0;
+
+        // this.shieldEnemies.add(this.my.shieldenemyRed2);
+
+        this.timesShieldHit2 = 0;
+        this.shieldJustHit2 = false;
+
+        //Bow Enemy 1
+        let Bow1 = this.add.sprite(+15,+10, "Bow").setOrigin(.1,.5);
+        let YellowHand1 = this.add.sprite(+15,+10, "YellowHand").setOrigin(.1,.5);
+        this.my.sprite.Bow1 = Bow1;
+        this.my.sprite.YellowHand1 = YellowHand1;
+ 
+        this.my.sprite.OvalYellow1 = this.add.sprite(0, 0, "OvalYellow");
+        my.bowenemyYellow1 = this.add.container(this.shieldX, this.shieldY, [this.my.sprite.OvalYellow1])
+        this.my.bowenemyYellow1.add([Bow1, YellowHand1]);
+
+        this.bow1PathProgress = 0;
+
+        // this.bowEnemies.add(this.my.bowenemyYellow1);
+
+        this.timesBowHit1 = 0;
+        this.justBowHit1 = false;
+
+
+        //Bow Enemy 2
+        let Bow2 = this.add.sprite(+15,+10, "Bow").setOrigin(.1,.5);
+        let YellowHand2 = this.add.sprite(+15,+10, "YellowHand").setOrigin(.1,.5);
+        this.my.sprite.Bow2 = Bow2;
+        this.my.sprite.YellowHand2 = YellowHand2;
+ 
+        this.my.sprite.OvalYellow2 = this.add.sprite(0, 0, "OvalYellow");
+        my.bowenemyYellow2 = this.add.container(this.shieldX, this.shieldY, [this.my.sprite.OvalYellow2])
+        this.my.bowenemyYellow2.add([Bow2, YellowHand2]);
+
+        this.bow2PathProgress = 0;
+
+        // this.bowEnemies.add(this.my.bowenemyYellow2);
+
+        this.timesBowHit2 = 0;
+        this.justBowHit2 = false;
+    }
+
+
+    waveTwo() {
+        let my = this.my
+
+        if (my.shieldenemyRed1) {
+            my.shieldenemyRed1.destroy();
+            my.shieldenemyRed1 = null;
+        }
+        if (my.shieldenemyRed2) {
+            my.shieldenemyRed2.destroy();
+            my.shieldenemyRed2 = null;
+        }
+        if (my.shieldenemyRed3) {
+            my.shieldenemyRed3.destroy();
+            my.shieldenemyRed3 = null;
+        }
+        if (my.bowenemyYellow1) {
+            my.bowenemyYellow1.destroy();
+            my.bowenemyYellow1 = null;
+        }
+        if (my.bowenemyYellow2) {
+            my.bowenemyYellow2.destroy();
+            my.bowenemyYellow2 = null;
+        }
+        if (my.bowenemyYellow3) {
+            my.bowenemyYellow3.destroy();
+            my.bowenemyYellow3 = null;
+        }
+
+        this.enemiesRemaining = 6;
+
+        //Shield Enemy 1
+        this.my.sprite.SquareRed1 = this.add.sprite(0, 0, "shieldEnemyRed");
+        this.my.shieldenemyRed1 = this.add.container(this.enemyX, this.enemyY, [this.my.sprite.SquareRed1])
+        let Helmet1 = this.add.sprite(0,-25, "Helmet");
+        this.my.sprite.Helmet1 = Helmet1;
+        let Shield1 = this.add.sprite(+15,+10, "Shield").setScale(.5);
+        this.my.shieldenemyRed1.add([Helmet1, Shield1]);
+        this.my.shieldenemyRed1.visible = true;
+
+        this.shield1PathProgress = 0;
+
+        // this.shieldEnemies.add(this.my.shieldenemyRed1);
+
+        this.timesShieldHit1 = 0;
+        this.shieldJustHit1 = false;
+
+        //Shield Enemy 2
+        this.my.sprite.SquareRed2 = this.add.sprite(0, 0, "shieldEnemyRed");
+        my.shieldenemyRed2 = this.add.container(this.enemyX, this.enemyY, [this.my.sprite.SquareRed2])
+        let Helmet2 = this.add.sprite(0,-25, "Helmet");
+        this.my.sprite.Helmet2 = Helmet2;
+        let Shield2 = this.add.sprite(+15,+10, "Shield").setScale(.5);
+        this.my.shieldenemyRed2.add([Helmet2, Shield2]);
+        my.shieldenemyRed2.visible = true;
+
+        this.shield2PathProgress = 0;
+
+        // this.shieldEnemies.add(this.my.shieldenemyRed2);
+
+        this.timesShieldHit2 = 0;
+        this.shieldJustHit2 = false;
+
+        //Shield Enemy 3
+        this.my.sprite.SquareRed3 = this.add.sprite(0, 0, "shieldEnemyRed");
+        my.shieldenemyRed3 = this.add.container(this.enemyX, this.enemyY, [this.my.sprite.SquareRed3])
+        let Helmet3 = this.add.sprite(0,-25, "Helmet");
+        this.my.sprite.Helmet3 = Helmet3;
+        let Shield3 = this.add.sprite(+15,+10, "Shield").setScale(.5);
+        this.my.shieldenemyRed3.add([Helmet3, Shield3]);
+        my.shieldenemyRed3.visible = true;
+
+        this.shield3PathProgress = .5;
+
+        // this.shieldEnemies.add(this.my.shieldenemyRed2);
+
+        this.timesShieldHit3 = 0;
+        this.shieldJustHit3 = false;
+
+        //Bow Enemy 1
+        let Bow1 = this.add.sprite(+15,+10, "Bow").setOrigin(.1,.5);
+        let YellowHand1 = this.add.sprite(+15,+10, "YellowHand").setOrigin(.1,.5);
+        this.my.sprite.Bow1 = Bow1;
+        this.my.sprite.YellowHand1 = YellowHand1;
+ 
+        this.my.sprite.OvalYellow1 = this.add.sprite(0, 0, "OvalYellow");
+        my.bowenemyYellow1 = this.add.container(this.shieldX, this.shieldY, [this.my.sprite.OvalYellow1])
+        this.my.bowenemyYellow1.add([Bow1, YellowHand1]);
+
+        this.bow1PathProgress = 0;
+
+        // this.bowEnemies.add(this.my.bowenemyYellow1);
+
+        this.timesBowHit1 = 0;
+        this.justBowHit1 = false;
+
+
+        //Bow Enemy 2
+        let Bow2 = this.add.sprite(+15,+10, "Bow").setOrigin(.1,.5);
+        let YellowHand2 = this.add.sprite(+15,+10, "YellowHand").setOrigin(.1,.5);
+        this.my.sprite.Bow2 = Bow2;
+        this.my.sprite.YellowHand2 = YellowHand2;
+ 
+        this.my.sprite.OvalYellow2 = this.add.sprite(0, 0, "OvalYellow");
+        my.bowenemyYellow2 = this.add.container(this.shieldX, this.shieldY, [this.my.sprite.OvalYellow2])
+        this.my.bowenemyYellow2.add([Bow2, YellowHand2]);
+
+        this.bow2PathProgress = 0;
+
+        // this.bowEnemies.add(this.my.bowenemyYellow2);
+
+        this.timesBowHit2 = 0;
+        this.justBowHit2 = false;
+
+
+        //Bow Enemy 3
+        let Bow3 = this.add.sprite(+15,+10, "Bow").setOrigin(.1,.5);
+        let YellowHand3 = this.add.sprite(+15,+10, "YellowHand").setOrigin(.1,.5);
+        this.my.sprite.Bow3 = Bow3;
+        this.my.sprite.YellowHand3 = YellowHand3;
+ 
+        this.my.sprite.OvalYellow3 = this.add.sprite(0, 0, "OvalYellow");
+        my.bowenemyYellow3 = this.add.container(this.shieldX, this.shieldY, [this.my.sprite.OvalYellow3])
+        this.my.bowenemyYellow3.add([Bow3, YellowHand3]);
+
+        this.bow3PathProgress = .5;
+
+        // this.bowEnemies.add(this.my.bowenemyYellow2);
+
+        this.timesBowHit3 = 0;
+        this.justBowHit3 = false;
+    }
+```
