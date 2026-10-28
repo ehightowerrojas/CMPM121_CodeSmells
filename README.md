@@ -16,6 +16,8 @@ One of the most important parts of coding clearly is coming up with good names t
 
 Here, its not clear what button1 really does, changing it to "mainbutton" might be more clear to suggest its purpose of incrementing "counter" to users.
 
+Before: 
+```typescript
 const button1 = document.createElement("button");
 button1.className = "button";
 button1.id = "Increment";
@@ -27,7 +29,22 @@ Object.assign(button1.style, {
   border: "none",
   cursor: "pointer",
 });
+```
 
+After: 
+```typescript
+const mainbutton = document.createElement("button");
+mainbutton.className = "button";
+mainbutton.id = "Increment";
+mainbutton.textContent = "Spin Me!";
+Object.assign(mainbutton.style, {
+  width: "80px",
+  height: "80px",
+  borderRadius: "50%",
+  border: "none",
+  cursor: "pointer",
+});
+```
 The **Mysterious Name** smell looks the same across all coding languages. Look for "let" or "const" in js/ts before variables to spot potential Mysterious Names. In C, look for data types being assigned to variables to spot this smell. Once you spot a Mysterious Name, change it to a mundane and clear name.
 
 ## Duplicated Code
