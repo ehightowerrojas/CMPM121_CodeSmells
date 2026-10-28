@@ -363,3 +363,57 @@ startWave(index) {
     this.enemiesRemaining = this.enemies.length;
 }
 ```
+### This JavaScript code block is used for loops to create floating text, when it could be using a map function instead. 
+ ```    JAVASCRIPT 
+ for (let i = 1; i <= 7; i++) {
+        this[`ball${i}`] = this.add.follower(line1, -200, game.config.height-(game.config.height/1.75), 'rocket');
+        this[`ball${i}`].startFollow({
+          delay: (i - 1) * delayIncrement,
+          duration: 800,
+          yoyo: true,
+          ease: 'Sine.easeInOut',
+          repeat: -1,
+        });
+      }
+      for (let i = 7; i <= 12; i++){
+        this[`ball${i}`] = this.add.follower(line1, -200, game.config.height-(game.config.height/2), 'rocket');
+        this[`ball${i}`].startFollow({
+          delay: (i - 7) * delayIncrement,
+          duration: 800,
+          yoyo: true,
+          ease: 'Sine.easeInOut',
+          repeat: -1,
+        });
+      }
+      for (let i = 13; i <= 40; i++){
+        this[`ball${i}`] = this.add.follower(line1, -200, game.config.height-(game.config.height/6), 'rocket');
+        this[`ball${i}`].startFollow({
+          delay: (i - 13) * delayIncrement,
+          duration: 800,
+          yoyo: true,
+          ease: 'Sine.easeInOut',
+          repeat: -1,
+        });
+      } 
+ ``` 
+## Refactor for JS
+``` JAVASCRIPT
+const transformedText = this[`ball${i}`].map(this[`ball${i}`] => this.add.follower(line1, -200, game.config.height-(game.config.height/6), 'rocket');)
+return transformedText;
+ ``` 
+### This Python code block is using a for loop to find prime numbers, when it could be using a filter function instead.
+ ``` PYTHON
+if inputn > 1:
+   for i in range(2,inputn):
+       if (inputn % i) == 0:
+           break
+   else:
+       print(inputn,"is a prime number.")
+       
+else:
+   print(inputn,"is not a prime number.")
+ ```
+## Refactor for Python
+``` PYTHON
+primeList = list(filter(lambda n : isprime(n), numberList)
+ ``` 
