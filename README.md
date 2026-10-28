@@ -59,6 +59,7 @@ The simplest case of finding and fixing a duplicated code smell is if you have t
 
 ### Code Example
 
+Before:
 ```javascript
 waveOne() {
         let my = this.my
@@ -282,4 +283,83 @@ waveOne() {
         this.timesBowHit3 = 0;
         this.justBowHit3 = false;
     }
+```
+
+After:
+```javascript
+class Enemy {
+    constructor(scene, x, y, pathProgress = 0) {
+        this.scene = scene;
+        this.pathProgress = pathProgress;
+        this.timesHit = 0;
+        this.justHit = false;
+        this.container = scene.add.container(x, y, [scene.add.sprite(0, 0, this.bodyKey)]);
+        this.addParts();                 // subclass hook
+    }
+    addParts() {}
+    destroy() {
+        this.container.destroy();
+    }
+}
+
+
+class ShieldEnemy extends Enemy {
+    get bodyKey() { return "shieldEnemyRed"; }
+    addParts() {
+        const s = this.scene;
+        this.helmet = s.add.sprite(0, -25, "Helmet");
+        this.shield = s.add.sprite(15, 10, "Shield").setScale(0.5);
+        this.container.add([this.helmet, this.shield]);
+    }
+}
+
+
+class BowEnemy extends Enemy {
+    get bodyKey() { return "OvalYellow"; }
+    addParts() {
+        const s = this.scene;
+        this.bow = s.add.sprite(15, 10, "Bow").setOrigin(0.1, 0.5);
+        this.hand = s.add.sprite(15, 10, "YellowHand").setOrigin(0.1, 0.5);
+        this.container.add([this.bow, this.hand]);
+    }
+}
+
+
+// ---------- Wave data ----------
+// Each entry: [EnemyClass, count, spawn-point key, path offsets for each enemy]
+const WAVES = [
+    [ // wave 1
+        { type: ShieldEnemy, spawn: "enemy", offsets: [0, 0] },
+        { type: BowEnemy,    spawn: "shield", offsets: [0, 0] },
+    ],
+    [ // wave 2
+        { type: ShieldEnemy, spawn: "enemy", offsets: [0, 0, 0.5] },
+        { type: BowEnemy,    spawn: "shield", offsets: [0, 0, 0.5] },
+    ],
+];
+
+
+// ---------- Scene methods ----------
+clearEnemies() {
+    (this.enemies ?? []).forEach(e => e.destroy());
+    this.enemies = [];
+}
+
+
+startWave(index) {
+    this.clearEnemies();
+    const spawnPoints = {
+        enemy:  { x: this.enemyX,  y: this.enemyY },
+        shield: { x: this.shieldX, y: this.shieldY },  // original bow enemies spawned here
+    };
+
+
+    for (const group of WAVES[index]) {
+        const { x, y } = spawnPoints[group.spawn];
+        for (const offset of group.offsets) {
+            this.enemies.push(new group.type(this, x, y, offset));
+        }
+    }
+    this.enemiesRemaining = this.enemies.length;
+}
 ```
