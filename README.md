@@ -4,6 +4,8 @@ Duplicated Code: Seamus
 
 Mysterious Name: Evan
 
+Loops: Cyra
+
 A **Code Smell** is a surface indication that usually corresponds to coding malpractices and to the trained eye, can be detected instantly.
 
 ## Mysterious Name
