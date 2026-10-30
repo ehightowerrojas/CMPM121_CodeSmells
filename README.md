@@ -362,11 +362,11 @@ startWave(index) {
     }
     this.enemiesRemaining = this.enemies.length;
     
+```
 ## Loops
 * Loops are very commonly used because they are one of the first operations taught to programmers, but can be unclear in their function or purpose.
 * Usage of loops can be replaced/replicated via pipeline functions like filters and maps, which more clearly display what the operation is doing and do what type of data.
 }
-```
 ### This JavaScript code block is used for loops to create floating text, when it could be using a map function instead. 
  ```    JAVASCRIPT 
  for (let i = 1; i <= 7; i++) {
